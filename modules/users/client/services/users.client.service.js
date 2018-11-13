@@ -36,9 +36,21 @@
         method: 'POST',
         url: '/api/auth/signup'
       },
-      signin: {
+        signin: {
         method: 'POST',
         url: '/api/auth/signin'
+      },
+      addNewUser: {
+        method: 'POST',
+        url: '/api/auth/addNewUser'
+      },
+      sendUserResult: {
+        method: 'PUT',
+        url: '/api/auth/addResults'
+      },
+      getUser: {
+        method: 'GET',
+        url: '/api/auth/getCurrentUser'
       }
     });
 
@@ -64,6 +76,15 @@
       },
       userSignin: function (credentials) {
         return this.signin(credentials).$promise;
+      },
+      adminAddNewUser: function (credentials) {
+        return this.addNewUser(credentials).$promise;
+      },
+      saveResultUrl: function (user) {
+        return this.sendUserResult(user).$promise;
+      },
+      getCurrentUser: function (user) {
+        return this.getUser(user).$promise;
       }
     });
 

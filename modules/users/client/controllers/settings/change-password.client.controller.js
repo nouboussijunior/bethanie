@@ -5,9 +5,9 @@
     .module('users')
     .controller('ChangePasswordController', ChangePasswordController);
 
-  ChangePasswordController.$inject = ['$scope', '$http', 'Authentication', 'UsersService', 'PasswordValidator', 'Notification'];
+  ChangePasswordController.$inject = ['$scope', 'Authentication', 'UsersService', 'PasswordValidator', 'Notification'];
 
-  function ChangePasswordController($scope, $http, Authentication, UsersService, PasswordValidator, Notification) {
+  function ChangePasswordController($scope,  Authentication, UsersService, PasswordValidator, Notification) {
     var vm = this;
 
     vm.user = Authentication.user;
@@ -23,6 +23,8 @@
         return false;
       }
 
+
+
       UsersService.changePassword(vm.passwordDetails)
         .then(onChangePasswordSuccess)
         .catch(onChangePasswordError);
@@ -30,12 +32,12 @@
 
     function onChangePasswordSuccess(response) {
       // If successful show success message and clear form
-      Notification.success({ message: '<i class="glyphicon glyphicon-ok"></i> Password Changed Successfully' });
+      Notification.success({ message: '<i class="glyphicon glyphicon-ok"></i> Mot de passe changé avec succès' });
       vm.passwordDetails = null;
     }
 
     function onChangePasswordError(response) {
-      Notification.error({ message: response.data.message, title: '<i class="glyphicon glyphicon-remove"></i> Password change failed!' });
+      Notification.error({ message: response.data.message, title: '<i class="glyphicon glyphicon-remove"></i> Erreur!' });
     }
   }
 }());

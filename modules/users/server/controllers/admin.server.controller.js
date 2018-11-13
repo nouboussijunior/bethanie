@@ -21,11 +21,22 @@ exports.read = function (req, res) {
 exports.update = function (req, res) {
   var user = req.model;
 
+  //delete email from the response
+  delete req.body.email;
+
   // For security purposes only merge these parameters
   user.firstName = req.body.firstName;
   user.lastName = req.body.lastName;
   user.displayName = user.firstName + ' ' + user.lastName;
   user.roles = req.body.roles;
+  user.username = req.body.username;
+  user.phonenumber = req.body.username;
+  user.agency = req.body.agency;
+  user.sexe = req.body.sexe;
+  user.age = req.body.age;
+  /*user.results = ["Res1", "Res2"];
+  user.results.push("Res3")
+  console.log(user.results);*/
 
   user.save(function (err) {
     if (err) {
@@ -76,7 +87,7 @@ exports.list = function (req, res) {
 exports.userByID = function (req, res, next, id) {
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(400).send({
-      message: 'User is invalid'
+      message: 'Utilisateur invalide'
     });
   }
 
@@ -84,7 +95,7 @@ exports.userByID = function (req, res, next, id) {
     if (err) {
       return next(err);
     } else if (!user) {
-      return next(new Error('Failed to load user ' + id));
+      return next(new Error("Impossible de charger l'utilisateur " + id));
     }
 
     req.model = user;

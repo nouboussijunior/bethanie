@@ -14,7 +14,7 @@
     vm.progress = 0;
 
     vm.upload = function (dataUrl) {
-
+      console.log(dataUrl);
       Upload.upload({
         url: '/api/users/picture',
         data: {

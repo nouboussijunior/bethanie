@@ -26,7 +26,7 @@ module.exports = function () {
       }
       if (!user || !user.authenticate(password)) {
         return done(null, false, {
-          message: 'Invalid username or password (' + (new Date()).toLocaleTimeString() + ')'
+          message: 'Numéro de Téléphone et/ou Mot de passe incorrects (' + (new Date()).toLocaleTimeString() + ')'
         });
       }
 

@@ -16,7 +16,7 @@ var _ = require('lodash'),
   User = mongoose.model('User'),
   validator = require('validator');
 
-var whitelistedFields = ['firstName', 'lastName', 'email', 'username'];
+var whitelistedFields = ['firstName', 'lastName', 'email', 'username', 'age', 'results'];
 
 var useS3Storage = config.uploads.storage === 's3' && config.aws.s3;
 var s3;
@@ -36,6 +36,7 @@ if (useS3Storage) {
 exports.update = function (req, res) {
   // Init Variables
   var user = req.user;
+  console.log(user);
 
   if (user) {
     // Update whitelisted fields only
@@ -70,6 +71,7 @@ exports.update = function (req, res) {
  * Update profile picture
  */
 exports.changeProfilePicture = function (req, res) {
+
   var user = req.user;
   var existingImageUrl;
   var multerConfig;
@@ -214,8 +216,10 @@ exports.me = function (req, res) {
       username: validator.escape(req.user.username),
       created: req.user.created.toString(),
       roles: req.user.roles,
+      age: req.user.age,
+      results: req.user.results,
       profileImageURL: req.user.profileImageURL,
-      email: validator.escape(req.user.email),
+      //email: validator.escape(req.user.email),
       lastName: validator.escape(req.user.lastName),
       firstName: validator.escape(req.user.firstName),
       additionalProvidersData: req.user.additionalProvidersData
