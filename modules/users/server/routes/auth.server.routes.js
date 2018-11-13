@@ -17,6 +17,8 @@ module.exports = function (app) {
   // Setting up the users authentication api
   app.route('/api/auth/signup').post(users.signup);
   app.route('/api/auth/signin').post(users.signin);
+  app.route('/api/auth/addNewUser').post(users.addNewUser);
+  app.route('/api/auth/addResults').put(users.addResults);
   app.route('/api/auth/signout').get(users.signout);
 
   // Setting the oauth routes

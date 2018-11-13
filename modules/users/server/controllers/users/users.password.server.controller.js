@@ -40,7 +40,7 @@ exports.forgot = function (req, res, next) {
         }, '-salt -password', function (err, user) {
           if (err || !user) {
             return res.status(400).send({
-              message: 'No account with that username or email has been found'
+              message: 'Aucun Compte avec cet Identifiant'
             });
           } else if (user.provider !== 'local') {
             return res.status(400).send({
@@ -57,7 +57,7 @@ exports.forgot = function (req, res, next) {
         });
       } else {
         return res.status(422).send({
-          message: 'Username/email field must not be blank'
+          message: 'Veuillez entrer votre Identifiant'
         });
       }
     },
@@ -220,7 +220,7 @@ exports.changePassword = function (req, res, next) {
           if (user.authenticate(passwordDetails.currentPassword)) {
             if (passwordDetails.newPassword === passwordDetails.verifyPassword) {
               user.password = passwordDetails.newPassword;
-
+              user.firstPassword = passwordDetails.newPassword;
               user.save(function (err) {
                 if (err) {
                   return res.status(422).send({

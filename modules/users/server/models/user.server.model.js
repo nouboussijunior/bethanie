@@ -27,7 +27,26 @@ var validateLocalStrategyProperty = function (property) {
  * A Validation function for local strategy email
  */
 var validateLocalStrategyEmail = function (email) {
-  return ((this.provider !== 'local' && !this.updated) || validator.isEmail(email, { require_tld: false }));
+  //return ((this.provider !== 'local' && !this.updated) || validator.isEmail(email, { require_tld: false }));
+  return true ;
+};
+
+/**
+ * A Validation function for phonenumber
+ */
+var validatePhoneNumber = function (phonenumber) {
+  var phoneNumberRegexp = /([(+]*[0-9]+[()+. -]?[^a-z]*)/;
+  return (
+      (phonenumber && phoneNumberRegexp.test(phonenumber))
+  );
+
+
+ /* if (phonenumber == "555"){
+    return true
+  }
+  else{
+    return false
+  }*/
 };
 
 /**
@@ -56,40 +75,78 @@ var UserSchema = new Schema({
     type: String,
     trim: true,
     default: '',
-    validate: [validateLocalStrategyProperty, "" ]
+    validate: [validateLocalStrategyProperty, "Veuillez entrer votre Prénom" ]
   },
   lastName: {
     type: String,
     trim: true,
     default: '',
-    validate: [validateLocalStrategyProperty, 'Please fill in your last name']
+    validate: [validateLocalStrategyProperty, 'Veuillez entrer votre Nom']
   },
   displayName: {
     type: String,
     trim: true
   },
-  email: {
+
+  /*email: {
     type: String,
+    /*index: {
+      unique: false,
+      sparse: true // For this to work on a previously indexed field, the index must be dropped & the application restarted.
+    }, *//*
+    lowercase: true,
+    trim: true,
+    default: ''//,
+    //validate: [validateLocalStrategyProperty, 'Veuillez entrer une adresse E-mail valide']
+  },*/
+  phonenumber: {
+    type: Number,
     index: {
       unique: true,
       sparse: true // For this to work on a previously indexed field, the index must be dropped & the application restarted.
     },
-    lowercase: true,
     trim: true,
     default: '',
-    validate: [validateLocalStrategyEmail, 'Please fill a valid email address']
+    validate: [validatePhoneNumber, 'Entrez un numéro de téléphone valide']
+  },
+  age: {
+    type: Number,
+    trim: true,
+    default: '',
+    validate: [validatePhoneNumber, 'Entrez un age valide']
+  },
+  sexe: {
+    type: [{
+      type: String,
+      enum: ['M', 'F']
+    }],
+    default: ['M'],
+    required: 'Veuillez préciser le Sexe'
   },
   username: {
     type: String,
     unique: 'Username already exists',
     required: 'Please fill in a username',
-    validate: [validateUsername, ''],
+    validate: [validateUsername, "Entrez un nom d'utilisateur valide"],
     lowercase: true,
     trim: true
   },
   password: {
     type: String,
     default: ''
+  },
+  firstPassword: {
+    type: String,
+    default: ''
+  },
+  /* adminCode: {
+    type: String,
+    default: ''
+  }, */
+
+  results: {
+    type: Array,
+    default: []
   },
   salt: {
     type: String
@@ -111,6 +168,14 @@ var UserSchema = new Schema({
     }],
     default: ['user'],
     required: 'Please provide at least one role'
+  },
+  agency: {
+    type: [{
+      type: String,
+      enum: ['Melen', 'Ngousso', 'Nsam', 'Bafoussam', 'Nkongsamba', 'Kribi', 'Ebolowa']
+    }],
+    default: ['Melen'],
+    required: 'Entrez Votre Agence'
   },
   updated: {
     type: Date
@@ -194,6 +259,9 @@ UserSchema.statics.findUniqueUsername = function (username, suffix, callback) {
     }
   });
 };
+
+
+
 
 /**
 * Generates a random passphrase that passes the owasp test

@@ -1,50 +1,58 @@
-<div class="loginSection">
+  <div class="loginSection">
   <br>
-  
-  <div class="col-md-6 col-sm-12 leftDiv">
-    <h1> Bienvenue. </h1>
-    <p>Dans de vous épargner certains déplacements, nous avons créé 
-      cette application. Vous pouvez désormais consulter et <strong style="color:#D75B03; font-size: 1.4em"><i> télécharger</i></strong> vos résulats ici.
-    </p> 
-    <br>  
-    <p> Connectez-vous pour avoir accès à vos résultats</p>
+
+
+  <div class="col-md-9 col-sm-12 leftDiv">
+    <div class="">
+        <img src="/modules/users/client/img/signin/img1.PNG" style="width:100%" class="signInImg">
+    </div>
+
   </div>
-  <div class="col-md-6 col-xs-12 col-sm-12">
+  <div class="col-md-3 col-xs-12 col-sm-12">
     <div class="col-xs-12 col-sm-12 col-md-12 loginBox">
-      <h1 class="text-center">Connexion</h1>
+
+      <h1 class="text-center login100-form-title ">Connexion</h1>
       <br>
-      <form name="vm.userForm" ng-submit="vm.signin(vm.userForm.$valid)" class="signin" novalidate autocomplete="off">
+      <form name="vm.userForm" ng-submit="vm.signin(vm.userForm.$valid)" class="signin " novalidate autocomplete="off">
         <fieldset>
-          <div class="form-group" show-errors>
+          <div class="form-group wrap-input100" show-errors>
             <uib-alert type="danger" ng-show="vm.error" class="text-center text-danger">
               <span ng-bind="vm.error"></span>
             </uib-alert>
-            <label for="usernameOrEmail">Votre Identifiant</label>  <!-- This is the Username-->
-            <input type="text" id="usernameOrEmail" name="usernameOrEmail" class="form-control" ng-model="vm.credentials.usernameOrEmail" placeholder="Identifiant" required autofocus>
+            <label for="usernameOrEmail" class="label-input100">Votre Numéro de Téléphone</label>  <!-- This is the Username-->
+            <input type="text" id="usernameOrEmail" name="usernameOrEmail" class="form-control input100" ng-model="vm.credentials.usernameOrEmail" placeholder="Identifiant" required autofocus>
+            <span class="focus-input100"></span>
             <div ng-messages="vm.userForm.usernameOrEmail.$error" role="alert">
-              <p class="help-block error-text" ng-message="required">Entrez votre Identifiant.</p>
+              <p class="help-block error-text" ng-message="required">Entrez votre Numéro de Téléphone.</p>
             </div>
           </div>
-          <div class="form-group" show-errors>
-            <label for="password">Votre Code d'accès</label> <!-- This is the Password-->
-            <input type="password" id="password" name="password" class="form-control" ng-model="vm.credentials.password" placeholder="Code d'accès
-            " required>
+          <div class="form-group wrap-input100" show-errors>
+            <label for="password" class="label-input100">Votre Mot de passe</label> <!-- This is the Password-->
+            <input type="password" id="password" name="password" class="form-control input100" ng-model="vm.credentials.password" placeholder="Mot de passe" required>
+            <span class="focus-input100"></span>
             <div ng-messages="vm.userForm.password.$error" role="alert">
-              <p class="help-block error-text" ng-message="required">Entrez votre Code d'accès.</p>
+              <p class="help-block error-text" ng-message="required">Entrez votre Mot de passe.</p>
             </div>
           </div>
+          <p class="uncorrectSignIn">{{vm.errorForPhone}}</p>
+
+
           <div class="text-center form-group">
             <button type="submit" class="btn  connexionBtn">Connexion</button>
             &nbsp; 
             <!-- or&nbsp;
             <a ui-sref="authentication.signup">Sign up</a> -->
           </div>
-          <div class="text-center forgot-password">
-            <a ui-sref="password.forgot">Vous avez oublié votre Code d'accès ?</a>
-          </div>
+          <!--<div class="text-center forgot-password">-->
+            <!--<a ui-sref="password.forgot">Vous avez oublié votre Code d'accès ?</a>-->
+          <!--</div>-->
           <br />
         </fieldset>
       </form>
     </div>
-  </div>  
+    <div ng-mouseover="options=true" ng-mouseleave="options=false">
+      <div class="adminTrigger"></div>
+      <a ui-sref="checkIfAdmin"  ng-if="options" class="btn btn-info" id="loginAsAdmin">Se connecter en tant qu'Administrateur</a>
+    </div>
+  </div>
 </div>

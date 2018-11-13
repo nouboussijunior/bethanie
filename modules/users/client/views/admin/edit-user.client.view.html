@@ -1,33 +1,79 @@
 <section>
   <div class="page-header">
-    <h1>User <span ng-bind="vm.user.username"></span></h1>
+    <h1>Utilisateur: <span ng-bind="vm.user.lastName + ' ' + vm.user.firstName"></span></h1>
   </div>
   <div class="col-md-12">
     <form name="vm.userForm" ng-submit="vm.update(vm.userForm.$valid)" novalidate>
       <fieldset>
         <div class="form-group" show-errors>
-          <label for="firstName">First Name</label>
-          <input type="text" id="firstName" name="firstName" class="form-control" ng-model="vm.user.firstName" placeholder="First Name" required autofocus />
-          <div ng-messages="vm.userForm.firstName.$error" role="alert">
-            <p class="help-block error-text" ng-message="required">First name is required.</p>
+          <label for="lastName">Nom</label>
+          <input type="text" id="lastName" name="lastName" class="form-control" ng-model="vm.user.lastName" placeholder="Nom" required autofocus/>
+          <div ng-messages="vm.userForm.lastName.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Veuillez entrer un Nom.</p>
           </div>
         </div>
         <div class="form-group" show-errors>
-          <label for="lastName">Last Name</label>
-          <input type="text" id="lastName" name="lastName" class="form-control" ng-model="vm.user.lastName" placeholder="Last Name" required />
-          <div ng-messages="vm.userForm.lastName.$error" role="alert">
-            <p class="help-block error-text" ng-message="required">Last name is required.</p>
+          <label for="firstName">Prénom</label>
+          <input type="text" id="firstName" name="firstName" class="form-control" ng-model="vm.user.firstName" placeholder="Prénom" required />
+          <div ng-messages="vm.userForm.firstName.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Veuillez entrer un Prénom.</p>
+          </div>
+        </div>
+        <div class="form-group" show-errors>
+          <label class="control-label" for="roles">Sexe</label>
+          <div class="controls">
+            <select class="form-control" type="text" name="sexe" ng-model="vm.user.sexe" id="sexe" ng-list required>
+              <option>F</option>
+              <option>M</option>
+            </select>
+            <div ng-messages="vm.userForm.roles.$error" role="alert">
+              <p class="help-block error-text" ng-message="required">Veuillez spécifier le Sexe.</p>
+            </div>
+          </div>
+        </div>
+        <div class="form-group" show-errors>
+          <label for="age">Age</label>
+          <input type="number" id="age" name="age" class="form-control" ng-model="vm.user.age" placeholder="Age" required  />
+          <div ng-messages="vm.userForm.age.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Veuillez entrer l'Age.</p>
+          </div>
+        </div>
+        <div class="form-group" show-errors>
+          <label for="username">Numéro de téléphone</label>
+          <input type="text" id="username" name="username" class="form-control" ng-model="vm.user.username" placeholder="Numéro de Téléphone" required  />
+          <div ng-messages="vm.userForm.username.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Veuillez entrer un numéro de Téléphone.</p>
           </div>
         </div>
         <div class="form-group" show-errors>
           <label class="control-label" for="roles">Roles</label>
           <div class="controls">
-            <input class="form-control" type="text" name="roles" ng-model="vm.user.roles" id="roles" ng-list required />
+            <select class="form-control" type="text" name="roles" ng-model="vm.user.roles" id="roles" ng-list required>
+              <option>user</option>
+              <option>admin</option>
+            </select>
             <div ng-messages="vm.userForm.roles.$error" role="alert">
-              <p class="help-block error-text" ng-message="required">At least one role is required.</p>
+              <p class="help-block error-text" ng-message="required">Veuillez spécifier un role pour cet utilisateur.</p>
             </div>
           </div>
         </div>
+          <div class="form-group" show-errors>
+          <label class="control-label" for="roles">Agence</label>
+          <div class="controls">
+            <select class="form-control" type="text" name="agency" ng-model="vm.user.agency" id="agency" ng-list required>
+              <option>Melen</option>
+              <option>Ngousso</option>
+              <option>Nsam</option>
+              <option>Bafoussam</option>
+              <option>Nkongsamba</option>
+              <option>Kribi</option>
+              <option>Ebolowa</option>
+            </select>
+            <div ng-messages="vm.userForm.agency.$error" role="alert">
+              <p class="help-block error-text" ng-message="required">Veuillez spécifier l'agence.</p>
+            </div>
+          </div>
+          </div>
         <div class="form-group">
           <input type="submit" value="Update" class="btn btn-default">
         </div>

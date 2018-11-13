@@ -17,16 +17,16 @@
     vm.isContextUserSelf = isContextUserSelf;
 
     function remove(user) {
-      if ($window.confirm('Are you sure you want to delete this user?')) {
+      if ($window.confirm('Etes-vous sûr de vouloir supprimer cet utilisateur?')) {
         if (user) {
           user.$remove();
 
           vm.users.splice(vm.users.indexOf(user), 1);
-          Notification.success('User deleted successfully!');
+          Notification.success('Utilisateur supprimé avec succès!');
         } else {
           vm.user.$remove(function () {
             $state.go('admin.users');
-            Notification.success({ message: '<i class="glyphicon glyphicon-ok"></i> User deleted successfully!' });
+            Notification.success({ message: '<i class="glyphicon glyphicon-ok"></i> Utilisateur supprimé avec succès!' });
           });
         }
       }
@@ -39,15 +39,13 @@
         return false;
       }
 
-      var user = vm.user;
-
       user.$update(function () {
         $state.go('admin.user', {
           userId: user._id
         });
-        Notification.success({ message: '<i class="glyphicon glyphicon-ok"></i> User saved successfully!' });
+        Notification.success({ message: '<i class="glyphicon glyphicon-ok"></i> Utilisateur enregistré avec succès!' });
       }, function (errorResponse) {
-        Notification.error({ message: errorResponse.data.message, title: '<i class="glyphicon glyphicon-remove"></i> User update error!' });
+        Notification.error({ message: errorResponse.data.message, title: '<i class="glyphicon glyphicon-remove"></i>' + "Erreur d'enregistrement!" });
       });
     }
 

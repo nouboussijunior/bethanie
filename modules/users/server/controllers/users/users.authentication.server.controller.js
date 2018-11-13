@@ -7,7 +7,11 @@ var path = require('path'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
   mongoose = require('mongoose'),
   passport = require('passport'),
-  User = mongoose.model('User');
+  config = require(path.resolve('./config/config')),
+  User = mongoose.model('User'),
+  fs = require('fs'),
+    randomstring = require("randomstring");
+
 
 // URLs for which user can't be redirected on signin
 var noReturnUrls = [
@@ -20,12 +24,13 @@ var noReturnUrls = [
  */
 exports.signup = function (req, res) {
   // For security measurement we remove the roles from the req.body object
-  delete req.body.roles;
+ // delete req.body.roles;
 
   // Init user and add missing fields
   var user = new User(req.body);
   user.provider = 'local';
   user.displayName = user.firstName + ' ' + user.lastName;
+  user.roles  = ['admin'];
 
   // Then save the user
   user.save(function (err) {
@@ -49,6 +54,55 @@ exports.signup = function (req, res) {
   });
 };
 
+/**
+ * Add A New User
+ */
+exports.addNewUser = function (req, res) {
+  // For security measurement we remove the roles from the req.body object
+   // delete req.body.email;
+
+
+  // Init user and add missing fields
+  var user = new User(req.body);
+  user.provider = 'local';
+  user.displayName = user.firstName + ' ' + user.lastName;
+  user.roles  = ['user'];
+
+  // Then save the user
+  user.save(function (err) {
+    if(err){
+      return res.status(422).send({
+        message: errorHandler.getErrorMessage(err)
+      });
+    }
+
+      //res.redirect('users');
+      res.send('Succeed !!')
+
+  });
+};
+
+exports.addResults = function (req, res) { console.log(req.body);
+
+  var user = new User(req.body);
+
+  User.findById(req.body._id, function (err, user) {
+    var bucket = [];  // Create an empty array
+    bucket = req.body.results; // Use created array as bucket to receive the actual value of results
+    user.results = bucket;  // set the new value of results as the one of the bucket that has been updated
+
+
+    user.save(function (err) {
+      if (err) {
+        return res.status(422).send({
+          message: errorHandler.getErrorMessage(err)
+        });
+      }
+      console.log('SUCEED');
+      console.log(user);
+    })
+  })
+};
 /**
  * Signin after passport authentication
  */
@@ -249,3 +303,77 @@ exports.removeOAuthProvider = function (req, res, next) {
     }
   });
 };
+
+
+
+exports.uploadResults = function (req, res) {
+  //console.log(res);
+  var user = new User(req.body);
+  var amazonS3URI = require('amazon-s3-uri');
+  var multerConfig;
+  var s3,
+      multer = require('multer'),
+      multerS3 = require('multer-s3'),
+      aws = require('aws-sdk'),
+      config = require(path.resolve('./config/config'));
+  var useS3Storage = config.uploads.storage === 's3' && config.aws.s3;
+
+
+
+  if (useS3Storage) {
+    multerConfig = {
+      storage: multerS3({
+        s3: s3,
+        bucket: config.aws.s3.bucket,
+        acl: 'public-read'
+      })
+    };
+  } else {
+    multerConfig = config.uploads.profile.image;
+  }
+
+  // Filtering to upload only images
+  multerConfig.fileFilter = require(path.resolve('./config/lib/multer')).imageFileFilter;
+
+  var upload = multer(multerConfig).single('resultUrl');
+
+   // existingImageUrl = user.profileImageURL;
+    uploadImage()
+        .then(updateUser)
+      // .then(deleteOldImage)
+      //.then(login)
+        .then(function () {
+          res.json(user);
+        })
+        .catch(function (err) {
+          res.status(422).send(err);
+        });
+
+
+  function uploadImage() {
+    return new Promise(function (resolve, reject) {
+      upload(req, res, function (uploadError) {
+        if (uploadError) {
+          reject(errorHandler.getErrorMessage(uploadError));
+        } else {
+          resolve();
+        }
+      });
+    });
+  }
+
+  function updateUser() {
+    return new Promise(function (resolve, reject) {
+      user.results = config.uploads.storage === 's3' && config.aws.s3 ?
+          req.file.location :
+      '/' + req.file.path;
+      user.save(function (err, theuser) {
+        if (err) {
+          reject(err);
+        } else {
+          resolve();
+        }
+      });
+    });
+  }
+}

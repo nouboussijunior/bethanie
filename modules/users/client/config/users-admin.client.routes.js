@@ -39,6 +39,27 @@
         data: {
           pageTitle: '{{ userResolve.displayName }}'
         }
+      })
+        .state('admin.addResults', {
+        url: '/users/:userId/addResults',
+        templateUrl: '/modules/users/client/views/admin/add-results.client.view.html',
+        controller: 'AddResultsController',
+        controllerAs: 'vm',
+        resolve: {
+          userResolve: getUser
+        },
+        data: {
+          pageTitle: '{{ userResolve.displayName }}'
+        }
+      })
+      .state('admin.addNewUser', {
+        url: '/add-a-new-user',
+        templateUrl: '/modules/users/client/views/admin/add-a-new-user.client.view.html',
+        controller: 'AddNewUserController',
+        controllerAs: 'vm',
+        data: {
+          pageTitle: 'Add a new User'
+        }
       });
 
     getUser.$inject = ['$stateParams', 'AdminService'];

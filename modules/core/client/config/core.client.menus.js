@@ -30,7 +30,7 @@
     });
 
     menuService.addSubMenuItem('account', 'settings', {
-      title: "Changez votre Code d'accès",
+      title: "Changez votre Mot de passe",
       state: 'settings.password'
     });
 
