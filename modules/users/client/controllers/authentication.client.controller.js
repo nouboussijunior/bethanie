@@ -19,7 +19,7 @@
     vm.verifyAdmin = verifyAdmin;
     vm.callOauthProvider = callOauthProvider;
     vm.usernameRegex = /^(?=[\w.-]+$)(?!.*[._-]{2})(?!\.)(?!.*\.$).{3,34}$/;
-    var codeAdmin = "changehealth";
+    var codeAdmin = "Change*health3785";
 
     // Get an eventual error defined in the URL query string:
     if ($location.search().err) {
