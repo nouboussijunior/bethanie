@@ -1,0 +1,36 @@
+<section>
+    <div class="page-header">
+        <h1>Vos Résultats</h1>
+    </div>
+
+    <div class="list-group resultsDiv" >
+        <!--<a  ui-sref="#" class="list-group-item col-md-3 col-lg-3 col-sm-3 results" width="320px" height="240px">-->
+            <!--<img ng-src="{{vm.user.results}}" width="320px" height="240px" />-->
+        <!--</a>-->
+        <!--<a ng-repeat="course in vm.courses" href="#">-->
+        <form  ng-repeat="result in vm.user.results" ng-if="$first" class="list-group-item results col-md-4 col-sm-6 col-xs-12" method="get" action="{{result}}">
+            <button  type="submit" class="bigContainerButton mostRecentResult">
+                <object  data="{{result}}" type="application/pdf"  height="400px"  class="resultFile" style="overflow:hidden;" >
+                </object>
+                <p  class="text-center btn seeRecentResult">VOIR CE RESULTAT</p>
+            </button>
+        </form>
+        <form  ng-repeat="result in vm.user.results" ng-if="!$first" class="list-group-item results col-md-4 col-sm-6 col-xs-12" method="get" action="{{result}}">
+
+            <button  type="submit" class="bigContainerButton">
+                <object  data="{{result}}" type="application/pdf"  height="400px"  class="resultFile" style="overflow:hidden;" >
+                </object>
+                <p  class="text-center btn seeResult">VOIR CE RESULTAT</p>
+            </button>
+        </form>
+
+        <!--<form method="get" action="/modules/users/client/img/results/nWEu6gOLMOBSchEKBt0Kr2ePnHmf1T.pdf">-->
+            <!--<button type="submit">Download!</button>-->
+        <!--</form>-->
+        <!--</a>-->
+    </div>
+
+</section>
+
+
+<!--ng-repeat="user in vm.pagedItems | orderBy : 'roles'"-->

@@ -4,8 +4,8 @@ module.exports = {
   app: {
     title: 'Laboratoire Bethanie' +
     '',
-    description: 'Full-Stack JavaScript with MongoDB, Express, AngularJS, and Node.js',
-    keywords: 'mongodb, express, angularjs, node.js, mongoose, passport',
+    description: 'Application du Labo Bethanie',
+    keywords: 'Laboratoire, Bethanie, Laboratoire Bethanie ',
     googleAnalyticsTrackingID: process.env.GOOGLE_ANALYTICS_TRACKING_ID || 'GOOGLE_ANALYTICS_TRACKING_ID'
   },
   db: {
@@ -59,14 +59,6 @@ module.exports = {
     profile: {
       image: {
         dest: './modules/users/client/img/profile/uploads/',
-        limits: {
-          fileSize: 1 * 1024 * 1024 // Max file size in bytes (1 MB)
-        }
-      }
-    },
-    resultsFiles: {
-      file: {
-        dest: './modules/users/results/',
         limits: {
           fileSize: 1 * 1024 * 1024 // Max file size in bytes (1 MB)
         }

@@ -1,0 +1,93 @@
+<!--<section class="row">-->
+    <!--<div class="text-center col-md-12">-->
+        <!--<h1>Ajouter Un Résultat</h1>-->
+    <!--</div>-->
+    <!--<br/>-->
+    <!--<div class="col-xs-offset-1 col-xs-10 col-md-offset-3 col-md-6">-->
+        <!--<form class="signin form-horizontal" action="/api/users/fileupload" method="post" enctype="multipart/form-data">-->
+        <!--&lt;!&ndash;<form class="signin form-horizontal">&ndash;&gt;-->
+
+            <!--<fieldset>-->
+                 <!--<div class="form-group text-center">-->
+                    <!--<img ngf-src="vm.fileSelected ? picFile : vm.user.profileImageURL" alt="{{vm.user.displayName}}" class="img-thumbnail user-profile-picture" ngf-drop>-->
+                <!--</div>-->
+                <!--<input type="file" name="filetoupload"><br>-->
+                <!--<input type="submit">-->
+
+
+                <!--&lt;!&ndash;<div ng-show="vm.loading" class="form-group text-center">-->
+                    <!--<img ng-src="/modules/core/client/img/loaders/loader.gif" height="50" width="50" alt="Loading image...">-->
+                <!--</div>-->
+                <!--<div ng-show="!vm.fileSelected" class="text-center form-group">-->
+                    <!--<button class="btn btn-default btn-file" ngf-select="(vm.fileSelected = true) && (vm.loading = false)" ng-model="picFile" accept="image/*" ngf-before-model-change="vm.loading = true" ngf-resize="{width: 400}" ngf-resize-if="$width > 400 || $height > 400">Selectionner Une Photo</button>-->
+                <!--</div>-->
+                <!--<div ng-show="vm.fileSelected" class="text-center form-group">-->
+                    <!--<button class="btn btn-primary" ng-click="vm.upload(picFile)">Utiliser cette photo</button>-->
+                    <!--<button class="btn btn-default" ng-click="vm.fileSelected = false">Annuler</button>-->
+                <!--</div>-->
+                <!--<div ng-show="vm.fileSelected" class="progress text-center">-->
+                    <!--<div class="progress-bar" role="progressbar" aria-valuenow="{{vm.progress}}" aria-valuemin="0" aria-valuemax="100" style="width:{{vm.progress}}%" ng-bind="vm.progress + '%'">-->
+                        <!--<span class="sr-only">{{vm.progress}}% Complete</span>-->
+                    <!--</div>-->
+                <!--</div>&ndash;&gt;-->
+            <!--</fieldset>-->
+        <!--</form>-->
+    <!--</div>-->
+<!--</section>-->
+
+
+<section>
+    <h1>Ajouter le résultat de ce  patient.</h1>
+    <br/>
+    <div class="col-md-12">
+        <form class="signin form-horizontal"  name="vm.upload_form">
+            <p>Cliquez sur ce boutton pour ajouter son résultat</p>
+             <div class="col-md-4">
+                 <input
+                        type="file"
+                        ngf-select
+                        ng-model="vm.file"
+                        name="file"
+                        ngf-pattern="'*'"
+                        accept="*"
+                        ngf-max-size="20MB"
+                        required="required"
+                        class="btn fileInput"
+                        />
+                <!--Image thumbnail: <img style="width:100px;" ng-show="!!vm.file" ngf-thumbnail="vm.file || '/thumb.jpg'"/>-->
+                <b><i ng-show="vm.upload_form.file.$error.maxSize">Ce Fichier est trop lourd
+                    {{vm.file.size / 1000000|number:1}}MB: max 20M</i> </b>
+                <!--  Multiple files
+                 <div class="button" ngf-select ng-model="up.files" ngf-multiple="true">Select</div>
+                 Drop files: <div ngf-drop ng-model="up.files" class="drop-box">Drop</div> -->
+             </div>
+            <div class="col-md-5" ng-if="vm.file">
+                <button class="btn btn-success submitBtn"  type="submit" ng-click="vm.submit()">Enregistrer ce résultat</button>
+                <!-- <p> <b>{{vm.progress}}</b></p>
+                <progress class="theProgressBar" value="{{vm.progress}}" max="100"></progress> -->
+            </div>
+        </form>
+    </div>
+
+    <div class="list-group resultsDiv adminSide col-md-12" >
+        <h3>Résultats de ce patient</h3>
+        <form  ng-repeat="result in vm.theResults" ng-if="$last" class="list-group-item results col-md-4 col-sm-6 col-xs-12" method="get" action="{{result}}">
+            <a type="button" class="destroy" ng-click="vm.removeResult(result)">x</a>
+            <button  type="submit" class="bigContainerButton mostRecentResult">
+                <object  data="{{result}}" type="application/pdf"  height="400px"  class="resultFile" style="overflow:hidden;" >
+                </object>
+                <p  class="text-center btn seeRecentResult">VOIR CE RESULTAT</p>
+            </button>
+        </form>
+        <form  ng-repeat="result in vm.theResults" ng-if="!$last" class="list-group-item results col-md-4 col-sm-6 col-xs-12" method="get" action="{{result}}">
+            <a type="button" class="destroy" ng-click="vm.removeResult(result)">x</a>
+            <button  type="submit" class="bigContainerButton">
+                <object  data="{{result}}" type="application/pdf"  height="400px"  class="resultFile" style="overflow:hidden;" >
+                </object>
+                <p  class="text-center btn seeResult">VOIR CE RESULTAT</p>
+            </button>
+        </form>
+    </div>
+
+
+</section>

@@ -18,7 +18,7 @@
       $rootScope.$on('$stateChangeSuccess', listener);
 
       function listener(event, toState) {
-        var applicationCoreTitle = 'MEAN.js',
+        var applicationCoreTitle = 'Labo Béthanie',
           separator = ' - ',
           stateTitle = applicationCoreTitle + separator;
 
