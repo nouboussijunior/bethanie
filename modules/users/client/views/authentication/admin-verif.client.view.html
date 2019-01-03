@@ -1,0 +1,26 @@
+<section class="row">
+    <h3 class="col-md-12 text-center codeAdminTitle" >Veuillez entrer le Code Administateur.</h3>
+    <div class="col-xs-offset-2 col-xs-8 col-md-offset-4 col-md-4">
+        <form name="" ng-submit="vm.verifyAdmin(vm.adminCode)" class="signin form-horizontal" novalidate autocomplete="off">
+            <fieldset>
+                <div class="form-group" show-errors>
+                    <label for="newPassword">Code</label>
+                    <input type="password" id="newPassword" name="newPassword" class="form-control" ng-model="vm.adminCode" placeholder="Code Administrateur"  required >
+
+                    <label for="newPasswordVerif" style="margin-top: 20px">Vérificatin du Code</label>
+                    <input type="password" id="newPasswordVerif" name="newPassword" class="form-control" ng-model="vm.adminCodeVerif" placeholder="Vérifiez le Code Administrateur"  required >
+
+                            <p class="codeErr"> {{invalidCode}}</p>
+                </div>
+                <div class="text-center form-group">
+                    <div class="col-md-5" style="padding-left: 0">
+                        <a class="btn orangeBtn pull-left" ui-sref="authentication.signin"    >
+                            Retour
+                        </a>
+                    </div>
+                    <button type="submit" class="btn pull-right blueBtn">Vérifier</button>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</section>
