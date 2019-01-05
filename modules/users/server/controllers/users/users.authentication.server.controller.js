@@ -9,8 +9,7 @@ var path = require('path'),
   passport = require('passport'),
   config = require(path.resolve('./config/config')),
   User = mongoose.model('User'),
-  fs = require('fs'),
-    randomstring = require("randomstring");
+  fs = require('fs');
 
 
 // URLs for which user can't be redirected on signin

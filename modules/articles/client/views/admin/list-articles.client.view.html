@@ -1,11 +1,9 @@
 ﻿<section>
   <div class="page-header">
-    <h1>
-      Articles
-      <a class="btn btn-primary pull-right" data-ui-sref="admin.articles.create">
-        <i class="glyphicon glyphicon-plus"></i>
-      </a>
-    </h1>
+    <h1>Commentaires</h1>
+    <a class="btn btn-primary pull-right" data-ui-sref="admin.articles.create">
+      Ecrire Un Commentaire
+    </a>
   </div>
   <div class="list-group">
     <a data-ng-repeat="article in vm.articles" data-ui-sref="admin.articles.edit({articleId: article._id})" class="list-group-item">
