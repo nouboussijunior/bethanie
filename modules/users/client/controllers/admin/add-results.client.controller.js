@@ -79,7 +79,7 @@
             });
 
 
-            var finalResult = "/modules/users/client/img/results/" + newFileName;
+            var finalResult = "/results/" + newFileName;
             var bucket = [];
             bucket = vm.user.results; // Use created array as bucket to receive the actual value of results
             bucket.push(finalResult); // push the incomming result into the bucket in question
